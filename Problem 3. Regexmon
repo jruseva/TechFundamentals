@@ -1,0 +1,68 @@
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
+					
+public class Program
+{
+	
+	
+	public static void Main()
+	{
+		string input = Console.ReadLine();
+		StringBuilder lineOfChars = new StringBuilder();
+		for (int i = 0; i < input.Length; i++)
+			 {
+				 lineOfChars.Append(input[i]);
+			 }
+	    string patternDidimon = @"([^A-Za-z-]+)";
+		string patternBojomon = @"([A-Za-z]+[-][A-Za-z]+)";
+        int counter = 1;
+		//characters.Any(c => word.Contains(c))
+		int totalMatches = 0; 
+		
+		foreach	(Match m in Regex.Matches(input, patternDidimon))
+		{
+			
+			totalMatches +=1;
+		}
+		
+		foreach	(Match m in Regex.Matches(input, patternBojomon))
+		{
+			
+			totalMatches +=1;
+		}
+		
+        while (totalMatches > 0)
+		{
+   
+		   if (counter % 2 == 0)
+		      {
+		         Match m = Regex.Match(lineOfChars.ToString(), patternDidimon);	
+			     Console.WriteLine(m);
+			     int start = m.Index;
+			     int length = m.ToString().Length;
+			     string currentString = lineOfChars.ToString().Substring(start,length);
+		         lineOfChars.Clear();
+			     lineOfChars.Append(currentString);
+		         
+		      }
+			
+           else
+			   
+		      {
+	             Match m = Regex.Match(lineOfChars.ToString(), patternBojomon);
+			     Console.WriteLine(m);
+		         int start = m.Index;
+			     int length = m.ToString().Length;
+			     string currentString = lineOfChars.ToString().Substring(start,length);
+		         lineOfChars.Clear();
+			     lineOfChars.Append(currentString);
+			     
+		      }
+			totalMatches--;
+			counter++;
+
+		}
+		
+	}
+}
